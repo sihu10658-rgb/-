@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local JS Chatbot - 다운로드</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .download-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .download-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .download-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .download-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .download-card p {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 20px rgba(108, 117, 125, 0.4);
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .step-list {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .step-list ol {
+            list-style-position: inside;
+            color: #555;
+            line-height: 2;
+        }
+
+        .step-list li {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .files-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .file-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .file-item strong {
+            color: #667eea;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .feature-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .feature-item strong {
+            color: #764ba2;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+            color: #666;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Local JS Chatbot</h1>
+            <p>로컬 LLM 기반 챗봇 서버 - 모든 파일 다운로드</p>
+        </div>
+
+        <div class="content">
+            <!-- 다운로드 섹션 -->
+            <div class="section">
+                <h2>📥 다운로드</h2>
+                
+                <div class="download-grid">
+                    <div class="download-card">
+                        <div class="icon">📦</div>
+                        <h3>소스 코드</h3>
+                        <p>전체 프로젝트를 다운로드하세요</p>
+                        <button class="btn" onclick="downloadZip()">ZIP 다운로드</button>
+                    </div>
+
+                    <div class="download-card">
+                        <div class="icon">📋</div>
+                        <h3>설치 파일</h3>
+                        <p>npm install 후 생성되는 파일들</p>
+                        <button class="btn" onclick="downloadInstallFiles()">설치 가이드</button>
+                    </div>
+
+                    <div class="download-card">
+                        <div class="icon">⚙️</div>
+                        <h3>설정 파일</h3>
+                        <p>.env, Dockerfile 등</p>
+                        <button class="btn" onclick="downloadConfigFiles()">설정 다운로드</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 주요 기능 -->
+            <div class="section">
+                <h2>✨ 주요 기능</h2>
+                <div class="features">
+                    <div class="feature-item">
+                        <strong>🚀 Express 서버</strong>
+                        <p>/chat 엔드포인트로 간단한 API 제공</p>
+                    </div>
+                    <div class="feature-item">
+                        <strong>🧠 LLM 백엔드</strong>
+                        <p>llama 또는 xenova 지원</p>
+                    </div>
+                    <div class="feature-item">
+                        <strong>🐳 Docker</strong>
+                        <p>Docker 이미지로 쉽게 배포</p>
+                    </div>
+                    <div class="feature-item">
+                        <strong>⚡ 로컬 실행</strong>
+                        <p>완전히 로컬에서 동작</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 설치 가이드 -->
+            <div class="section">
+                <h2>🛠️ 설치 방법</h2>
+                
+                <div class="info-box">
+                    <h3>단계별 설치 가이드</h3>
+                    <div class="step-list">
+                        <ol>
+                            <li><strong>레포 클론</strong>
+                                <div class="code-block">git clone https://github.com/sihu10658-rgb/-<br>cd -</div>
+                            </li>
+                            <li><strong>Node 의존성 설치</strong>
+                                <div class="code-block">npm install</div>
+                            </li>
+                            <li><strong>모델 파일 다운로드</strong>
+                                <div class="code-block">mkdir -p models<br># ggml 모델을 ./models/ggml-model.bin에 배치</div>
+                            </li>
+                            <li><strong>.env 파일 생성</strong>
+                                <div class="code-block">BACKEND=llama<br>MODEL_PATH=./models/ggml-model.bin<br>PORT=3000</div>
+                            </li>
+                            <li><strong>서버 실행</strong>
+                                <div class="code-block">npm start</div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 설치 후 생성 파일 -->
+            <div class="section">
+                <h2>📁 npm install 후 생성되는 파일들</h2>
+                
+                <div class="files-list">
+                    <div class="file-item">
+                        <strong>node_modules/</strong> - 모든 npm 라이브러리 (자동 생성)
+                    </div>
+                    <div class="file-item">
+                        <strong>package-lock.json</strong> - 정확한 의존성 버전 정보
+                    </div>
+                    <div class="file-item">
+                        <strong>models/ggml-model.bin</strong> - AI 모델 파일 (직접 다운로드 필요)
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h3>💡 중요 정보</h3>
+                    <p><strong>node_modules</strong>는 매우 크므로 (.bin) 깃에 업로드되지 않습니다. 각 사용자가 <code>npm install</code>로 직접 설치해야 합니다.</p>
+                </div>
+            </div>
+
+            <!-- API 사용법 -->
+            <div class="section">
+                <h2>🔌 API 사용법</h2>
+                
+                <div class="info-box">
+                    <h3>POST /chat</h3>
+                    <p><strong>요청:</strong></p>
+                    <div class="code-block">POST http://localhost:3000/chat<br>Content-Type: application/json<br><br>{"message": "안녕하세요"}</div>
+                    
+                    <p><strong style="margin-top: 15px; display: block;">응답:</strong></p>
+                    <div class="code-block">{"reply": "안녕하세요! 뭘 도와드릴까요?"}</div>
+                </div>
+            </div>
+
+            <!-- Docker 실행 -->
+            <div class="section">
+                <h2>🐳 Docker로 실행</h2>
+                
+                <div class="step-list">
+                    <p style="margin-bottom: 15px;"><strong>1. Docker 이미지 빌드</strong></p>
+                    <div class="code-block">docker build -t local-js-chatbot .</div>
+                    
+                    <p style="margin-top: 20px; margin-bottom: 15px;"><strong>2. 컨테이너 실행</strong></p>
+                    <div class="code-block">docker run -p 3000:3000 --env-file .env -v $(pwd)/models:/app/models local-js-chatbot</div>
+                </div>
+            </div>
+
+            <!-- 추가 정보 -->
+            <div class="section">
+                <h2>ℹ️ 추가 정보</h2>
+                
+                <div class="info-box">
+                    <h3>필수 요구사항</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li>Node.js 14+ 설치</li>
+                        <li>npm 또는 yarn</li>
+                        <li>충분한 저장공간 (모델 파일이 큼)</li>
+                        <li>강력한 CPU/GPU (선택)</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <h3>모델 옵션</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li><strong>Llama (권장):</strong> ggml 형식의 양자화 모델 (빠르고 효율적)</li>
+                        <li><strong>Xenova:</strong> 순수 JS/WASM 백엔드 (추가 빌드 불필요)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📧 문의: <a href="mailto:sihu10658@gmail.com">sihu10658@gmail.com</a></p>
+            <p>🔗 GitHub: <a href="https://github.com/sihu10658-rgb/-" target="_blank">sihu10658-rgb/-</a></p>
+            <p>📜 라이센스: MIT</p>
+        </div>
+    </div>
+
+    <script>
+        function downloadZip() {
+            alert('전체 소스 코드를 다운로드하시려면\n\ngit clone https://github.com/sihu10658-rgb/-\n\n명령어를 사용하세요!');
+            window.open('https://github.com/sihu10658-rgb/-/archive/refs/heads/main.zip', '_blank');
+        }
+
+        function downloadInstallFiles() {
+            const content = `# npm install 후 생성되는 파일들
+
+## 자동 생성 파일
+
+### node_modules/ (디렉토리)
+- 모든 npm 패키지 라이브러리
+- 크기: 보통 500MB~1GB 이상
+- .gitignore에 등록되어 git에 저장 안됨
+- 각 사용자가 npm install로 설치 필요
+
+### package-lock.json (파일)
+- 정확한 의존성 버전 정보
+- 모든 팀원이 같은 버전 사용하도록 보장
+- git에 저장됨
+
+## 의존성 패키지 목록
+
+### Dependencies (필수)
+- express@^4.18.2 - 웹 서버 프레임워크
+- cors@^2.8.5 - CORS 미들웨어
+- dotenv@^16.0.0 - 환경변수 관리
+
+### Optional Dependencies (선택)
+- llama-cpp-node@^1.0.0 - Llama 모델 백엔드
+- @xenova/transformers@^2.0.0 - Xenova 모델 백엔드
+
+### Dev Dependencies (개발용)
+- semantic-release@^21.0.0 - 자동 버전 관리
+- nodemon - 파일 변경 감지 실행
+
+## 설치 명령어
+
+\`\`\`bash
+npm install
+\`\`\`
+
+## 설치 크기 확인
+
+\`\`\`bash
+du -sh node_modules/
+\`\`\`
+
+## 주의사항
+- node_modules는 프로젝트마다 설치되어야 함
+- .gitignore에 등록되어 저장소에 업로드 안됨
+- 용량이 크므로 시간이 걸릴 수 있음
+- 다양한 OS/플랫폼 바이너리 포함됨
+`;
+            downloadFile(content, 'npm-install-guide.md');
+        }
+
+        function downloadConfigFiles() {
+            const envContent = `# Local JS Chatbot - .env 설정 파일
+
+# 사용할 백엔드 (llama 또는 xenova)
+BACKEND=llama
+
+# Llama 모델 설정
+MODEL_PATH=./models/ggml-model.bin
+
+# 서버 포트
+PORT=3000
+
+# 최대 토큰 수 (생성할 최대 텍스트 길이)
+MAX_TOKENS=256
+
+# 환경 (development 또는 production)
+NODE_ENV=production
+`;
+            downloadFile(envContent, '.env.example');
+        }
+
+        function downloadFile(content, filename) {
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>
