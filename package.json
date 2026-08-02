@@ -1,44 +1,21 @@
 {
-  "name": "@sihu10658/local-js-chatbot",
+  "name": "echo-bot-backup-app",
   "version": "0.1.0",
-  "type": "module",
-  "main": "server.js",
-  "description": "Local JavaScript chatbot using local LLM backends (llama-cpp-node or xenova).",
-  "keywords": ["chatbot", "llm", "local", "llama", "xenova", "nodejs"],
-  "author": "sihu10658 <sihu10658@gmail.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sihu10658-rgb/-.git"
-  },
-  "bugs": {
-    "url": "https://github.com/sihu10658-rgb/-/issues"
-  },
-  "homepage": "https://github.com/sihu10658-rgb/-#readme",
-  "publishConfig": {
-    "access": "public"
-  },
+  "description": "Rule-based echo bot (backup) with a small HTTP API and a min-n utility",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "NODE_ENV=development nodemon server.js",
-    "release": "semantic-release"
+    "start": "node src/server.js",
+  "dev": "nodemon src/server.js",
+    "lint": "echo \"no lint configured\""
+  },
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.0"
-  },
-  "optionalDependencies": {
-    "llama-cpp-node": "^1.0.0",
-    "@xenova/transformers": "^2.0.0"
+    "express": "^4.18.2"
   },
   "devDependencies": {
-    "semantic-release": "^21.0.0",
-    "@semantic-release/npm": "^9.0.0",
-    "@semantic-release/github": "^10.0.0",
-    "@semantic-release/changelog": "^6.0.0",
-    "@semantic-release/git": "^10.0.0",
-    "@semantic-release/commit-analyzer": "^10.0.0",
-    "@semantic-release/release-notes-generator": "^10.0.0"
-  }
+    "nodemon": "^2.0.22"
+  },
+  "license": "MIT"
 }
